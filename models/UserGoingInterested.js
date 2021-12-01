@@ -1,7 +1,7 @@
 class UserGoingInterested {
     constructor(email) {
-      this.email = email;
+        this.email = email;
     }
-  }
+}
 
-  export default UserGoingInterested;
+export default UserGoingInterested;

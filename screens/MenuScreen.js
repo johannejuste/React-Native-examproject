@@ -1,165 +1,167 @@
-import React, { useState } from 'react';
-import { View, Switch, Text, TouchableOpacity, Button, StyleSheet } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { logout } from './../store/actions/UserActions';
-import { useSelector } from 'react-redux';
-import { toggleUserValid } from './../store/actions/UserActions';
-import { toggleChatNotification } from './../store/actions/UserActions';
-import { toggleEventNotification } from './../store/actions/UserActions';
+import React, {useState} from 'react';
+import {
+    View,
+    Switch,
+    Text,
+    TouchableOpacity,
+    Button,
+    StyleSheet
+} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {logout} from './../store/actions/UserActions';
+import {useSelector} from 'react-redux';
+import {toggleUserValid} from './../store/actions/UserActions';
+import {toggleChatNotification} from './../store/actions/UserActions';
+import {toggleEventNotification} from './../store/actions/UserActions';
 
-// IMAGE COMP
 import ImagesAvatar from './../components/imageAvatar';
-
-// LINE SEPERATOR 
 import Line from './../components/Line';
 
 const MenuScreen = props => {
 
-  const isValid = useSelector(state => state.user.isValid) // the subscription
-   
-  const dispatch = useDispatch();
-  const userInfo = useSelector(state => state.user.loggedInUser );
+    const dispatch = useDispatch();
 
-   const toggleChatNotifications = () => {
-    console.log(userInfo, userInfo.chatToggle);
-    dispatch(toggleChatNotification(userInfo, userInfo.chatToggle));
- }
+    //useSelector() that extracts the data from the store.
+    const isValid = useSelector(state => state.user.isValid) // the subscription
+    const userInfo = useSelector(state => state.user.loggedInUser);
 
- const toggleEventNotifications = () => {
-    console.log(userInfo, userInfo.chatToggle);
-    dispatch(toggleEventNotification(userInfo, userInfo.eventToggle));
- }
- 
+    // toggles chattoggle
+    const toggleChatNotifications = () => {
+        // console.log(userInfo, userInfo.chatToggle);
+        dispatch(toggleChatNotification(userInfo, userInfo.chatToggle));
+    }
 
-   return (
-      <View style={styles.container}>
-         
-      <View style={styles.imgWrap}>
+    // toggles eventtoggle
+    const toggleEventNotifications = () => {
+        // console.log(userInfo, userInfo.chatToggle);
+        dispatch(toggleEventNotification(userInfo, userInfo.eventToggle));
+    }
 
-        <ImagesAvatar  />
+    return (
+        <View style={styles.container}>
 
-        <View style={styles.headLineWrapper}>
-           <Text style={styles.headLine}>{userInfo.firstname}</Text>
-           <Text style={styles.inLine}>{userInfo.email}</Text>
-           <Text style={styles.inLine}>{userInfo.studyProgramme}</Text>
+            <View style={styles.imgWrap}>
+
+                <ImagesAvatar/>
+
+                <View style={styles.headLineWrapper}>
+                    <Text style={styles.headLine}>{userInfo.firstname}</Text>
+                    <Text style={styles.inLine}>{userInfo.email}</Text>
+                    <Text style={styles.inLine}>{userInfo.studyProgramme}</Text>
+                </View>
+            </View>
+
+            <TouchableOpacity>
+                <View style={styles.buttonEditProfile}>
+                    <Text style={styles.EditProfileButtonText}>Edit profile</Text>
+                </View>
+            </TouchableOpacity>
+
+            <Line/>
+
+            <View style={styles.headLineWrapper}>
+                <Text style={styles.NotifcationsHeadLine}>Notifications</Text>
+            </View>
+
+            <View style={styles.chatWrapper}>
+                <View style={styles.switchWrapper}>
+
+                    <Switch
+                        style={styles.switch}
+                        trackColor={{
+                        false: "#AAAAAA",
+                        true: "#BABADD"
+                    }}
+                        thumbColor={userInfo.chatToggle
+                        ? "#5050A5"
+                        : "#F5F5F5"}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={toggleChatNotifications}
+                        value={userInfo.chatToggle}/>
+
+                    <View style={styles.flex}>
+                        <Text style={styles.placeHolder}>Chat</Text>
+                        <Text style={styles.txtInLine}>When you receive a new message</Text>
+                    </View>
+
+                </View>
+            </View>
+
+            <View style={styles.eventWrapper}>
+
+                <View style={styles.switchWrapper}>
+
+                    <Switch
+                        style={styles.eventSwitch}
+                        trackColor={{
+                        false: "#AAAAAA",
+                        true: "#BABADD"
+                    }}
+                        thumbColor={userInfo.eventToggle
+                        ? "#5050A5"
+                        : "#F5F5F5"}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={toggleEventNotifications}
+                        value={userInfo.eventToggle}/>
+
+                    <View style={styles.flex}>
+                        <Text style={styles.placeHolder}>Event reminder</Text>
+                        <Text style={styles.txtInLine}>An hour before events you are ‘going to’</Text>
+                    </View>
+
+                </View>
+
+            </View>
+
+            <Line/>
+
+            <TouchableOpacity onPress={() => dispatch(logout(isValid))}>
+                <View style={styles.button}>
+                    <Text style={styles.buttonText}>Log out</Text>
+                </View>
+            </TouchableOpacity>
+
         </View>
-      </View>
-
-        <TouchableOpacity onPress={() => dispatch(editProfile())}> 
-          <View style={styles.buttonEditProfile}>
-            <Text style={styles.EditProfileButtonText}>Edit profile</Text>
-          </View>
-        </TouchableOpacity>
-
-        <Line />
-
-        <View style={styles.headLineWrapper}>
-           <Text style={styles.NotifcationsHeadLine}>Notifications</Text>
-        </View>
-
-        
-      <View style={styles.chatWrapper}>
-        <View style={styles.switchWrapper}>
-
-           <Switch 
-                 style={styles.switch}
-                 trackColor={{ false: "#AAAAAA", true: "#BABADD" }} 
-                 thumbColor={userInfo.chatToggle ? "#5050A5" : "#F5F5F5"}
-                 ios_backgroundColor="#3e3e3e"
-                 onValueChange={toggleChatNotifications}
-                 value={userInfo.chatToggle} />
-
-                 
-        <View style={styles.flex}>   
-            <Text style={styles.placeHolder}>Chat</Text>
-            <Text style={styles.txtInLine}>When you receive a new message</Text>
-        </View>
-
-        </View>
-      </View>
-
-        
-        <View style={styles.eventWrapper}>
-
-        <View style={styles.switchWrapper}>
-
-<Switch 
-      style={styles.eventSwitch}
-      trackColor={{ false: "#AAAAAA", true: "#BABADD"}}
-      thumbColor={userInfo.eventToggle ? "#5050A5" : "#F5F5F5"}
-      ios_backgroundColor="#3e3e3e"
-      onValueChange={toggleEventNotifications}
-      value={userInfo.eventToggle} />
-
-      
-<View style={styles.flex}>   
- <Text style={styles.placeHolder}>Event reminder</Text>
- <Text style={styles.txtInLine}>An hour before events you are ‘going to’</Text>
-</View>
-
-</View>
-          
-      
-        </View>
-        
-
-        <Line />
-
-         <TouchableOpacity onPress={() => dispatch(logout(isValid))}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Log out</Text>
-          </View>
-        </TouchableOpacity>
-
-      </View>
-   );
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
-         flex: 1,
-         justifyContent: 'center',
-         alignItems: 'center',
-         backgroundColor: '#F5F5F5',    
-
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5F5F5'
     },
 
     flex: {
-      flexDirection: 'column',
-      
+        flexDirection: 'column'
     },
 
- 
-
     switchWrapper: {
-      flexDirection: 'row-reverse',
-      justifyContent: 'flex-end',
-      paddingHorizontal: 20,
-        
-      
+        flexDirection: 'row-reverse',
+        justifyContent: 'flex-end',
+        paddingHorizontal: 20
     },
 
     switch: {
 
-      marginTop: 20,
-      marginLeft: 50,
-
+        marginTop: 20,
+        marginLeft: 50
     },
 
     eventSwitch: {
-      marginTop: 20,
-      marginLeft: 15,
+        marginTop: 20,
+        marginLeft: 15
     },
 
-    placeHolder : {
-     marginTop: 15,
-      marginBottom: 10,
-      fontWeight: 'bold',
-      textAlign: 'left',
-      fontSize: 16,
-      color: 'black',
-      textTransform: 'uppercase',
-      
+    placeHolder: {
+        marginTop: 15,
+        marginBottom: 10,
+        fontWeight: 'bold',
+        textAlign: 'left',
+        fontSize: 16,
+        color: 'black',
+        textTransform: 'uppercase'
     },
 
     imgWrap: {
@@ -168,59 +170,56 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         flexDirection: 'row',
         paddingVertical: 10, //change for button to go up and down
-        
+
     },
 
     chatWrapper: {
-      backgroundColor: 'white',
-      width: 337,
-      height: 72,
-      shadowColor: "#000",
-      shadowOffset: {
-         width: 0,
-         height: 2,
-          },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-      elevation: 5,
-      borderRadius: 5,
-      margin: 12,
-      
-   
-    }, 
+        backgroundColor: 'white',
+        width: 337,
+        height: 72,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        borderRadius: 5,
+        margin: 12
+    },
 
     eventWrapper: {
-      backgroundColor: 'white',
-      width: 337,
-      height: 72,
-      shadowColor: "#000",
-      shadowOffset: {
-         width: 0,
-         height: 2,
-          },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-      elevation: 5,
-      borderRadius: 5,
-      margin: 12,
-      marginBottom: 20,
-   
-    }, 
+        backgroundColor: 'white',
+        width: 337,
+        height: 72,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        borderRadius: 5,
+        margin: 12,
+        marginBottom: 20
+    },
 
     wrapper: {
         backgroundColor: 'white',
         width: 300,
         shadowColor: "#000",
         shadowOffset: {
-	        width: 0,
-	        height: 2,
-            },
+            width: 0,
+            height: 2
+        },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
         height: 239,
         borderRadius: 5,
-        marginBottom: 40,
+        marginBottom: 40
     },
 
     wrapperInline: {
@@ -229,7 +228,7 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderWidth: 1,
         shadowColor: '#AAAAAA29',
-        width: 300,
+        width: 300
     },
 
     button: {
@@ -244,195 +243,163 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         shadowColor: "#000",
         shadowOffset: {
-	        width: 0,
-	        height: 2,
-            },
+            width: 0,
+            height: 2
+        },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
-        marginBottom: 50,
-        
-      },
+        marginBottom: 50
+    },
 
-      buttonText: {
+    buttonText: {
         textAlign: 'center',
         justifyContent: 'center',
         padding: 10,
         color: 'darkblue',
         textTransform: 'uppercase',
         fontWeight: 'bold',
-        fontSize: 26,
-        
-        
-      },
+        fontSize: 26
+    },
 
-      buttonEditProfile: {
-         alignItems: 'center',
-         justifyContent: 'center',
-         paddingHorizontal: 4,
-         borderRadius: 5,
-         width: 336,
-         height: 37,
-         backgroundColor: '#5050A5',
-         shadowColor: "#000",
-         shadowOffset: {
+    buttonEditProfile: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 4,
+        borderRadius: 5,
+        width: 336,
+        height: 37,
+        backgroundColor: '#5050A5',
+        shadowColor: "#000",
+        shadowOffset: {
             width: 0,
-            height: 2,
-             },
-         shadowOpacity: 0.25,
-         shadowRadius: 3.84,
-         elevation: 5,
-         marginTop: 10,
-         marginBottom: 30,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        marginTop: 10,
+        marginBottom: 30
+    },
 
-      },
+    EditProfileButtonText: {
+        textAlign: 'center',
+        justifyContent: 'center',
+        padding: 10,
+        color: 'snow',
+        textTransform: 'uppercase',
+        fontWeight: 'bold',
+        fontSize: 16
+    },
 
-      EditProfileButtonText: {
-         textAlign: 'center',
-         justifyContent: 'center',
-         padding: 10,
-         color: 'snow',
-         textTransform: 'uppercase',
-         fontWeight: 'bold',
-         fontSize: 16,
-         
-         
-       },
+    accountButton: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        margin: 15,
+        paddingVertical: 12
+    },
 
-      accountButton: {
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          margin: 15,
-          paddingVertical: 12,
-          
-
-      },
-
-      accountButtonText: {
+    accountButtonText: {
 
         color: '#5050A5',
         fontWeight: 'bold',
-        marginLeft: 6,
-
-      },
-
-      accountText: {
-        color: '#5050A5',
-
+        marginLeft: 6
     },
 
-      headLine: {
-          flex: 0,
-          justifyContent: 'flex-end',
-          alignItems: 'flex-start',
-          textAlign: 'left',
-          color: '#32305D',
-          fontSize: 26,
-          fontWeight: 'bold',
-          marginRight: 90,
-          marginTop: 10,
-         
-          
-      },
+    accountText: {
+        color: '#5050A5'
+    },
 
-      NotifcationsHeadLine: {
-         justifyContent: 'flex-end',
-         alignItems: 'flex-start',
-         textAlign: 'left',
-         color: '#32305D',
-         fontSize: 26,
-         fontWeight: 'bold',
-         marginRight: 90,
-         marginBottom: 20,
-         width: 240,
-         textTransform: 'uppercase',
+    headLine: {
+        flex: 0,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-start',
+        textAlign: 'left',
+        color: '#32305D',
+        fontSize: 26,
+        fontWeight: 'bold',
+        marginRight: 90,
+        marginTop: 10
+    },
 
-      },
+    NotifcationsHeadLine: {
+        justifyContent: 'flex-end',
+        alignItems: 'flex-start',
+        textAlign: 'left',
+        color: '#32305D',
+        fontSize: 26,
+        fontWeight: 'bold',
+        marginRight: 90,
+        marginBottom: 20,
+        width: 240,
+        textTransform: 'uppercase'
+    },
 
-      inLine: {
-         flex: 0,
-         justifyContent: 'flex-end',
-         alignItems: 'flex-start',
-         textAlign: 'left',
-         color: '#32305D',
-         fontSize: 12,
-         fontWeight: 'normal',
-         marginRight: 90,
-         
-         
-         
-     },
+    inLine: {
+        flex: 0,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-start',
+        textAlign: 'left',
+        color: '#32305D',
+        fontSize: 12,
+        fontWeight: 'normal',
+        marginRight: 90
+    },
 
-     
-     txtInLine: {
-      flex: 0,
-      justifyContent: 'flex-end',
-      alignItems: 'flex-start',
-      textAlign: 'left',
-      color: '#32305D',
-      fontSize: 12,
-      fontWeight: 'normal',
-      marginRight: 0,
-      marginBottom: 20,
-      
-      
-  },
+    txtInLine: {
+        flex: 0,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-start',
+        textAlign: 'left',
+        color: '#32305D',
+        fontSize: 12,
+        fontWeight: 'normal',
+        marginRight: 0,
+        marginBottom: 20
+    },
 
+    smallLine: {
+        justifyContent: 'center',
+        textAlign: 'left',
+        flexDirection: 'column'
+    },
 
-      smallLine: {
-         justifyContent: 'center',
-         textAlign: 'left',
-         flexDirection: 'column',
-      },
-
-      headLineWrapper: {
+    headLineWrapper: {
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
-        margin: 1,
+        margin: 1
+    },
 
-      },
-
-      checkboxContainer: {
+    checkboxContainer: {
         flexDirection: "row",
-        marginBottom: 20,
-       
-      },
+        marginBottom: 20
+    },
 
+    checkboxWrapper: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 15
+    },
 
-      checkboxWrapper: {
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: 15,
-
-      },
-
-      checkbox: {
+    checkbox: {
         marginBottom: 16
-      },
+    },
 
-      termsLabel: {
+    termsLabel: {
         textTransform: 'none',
         color: '#32305D',
         borderStyle: 'solid',
         textDecorationLine: 'none',
-        fontSize: 12,
-      },
+        fontSize: 12
+    },
 
-      termsText: {
-          textTransform: 'lowercase',
-          color: '#32305D',
-          borderStyle: 'solid',
-          textDecorationLine: 'underline',
-          fontSize: 12,
-          
-          
-         
-      },
-
-     
-    
-
-    
- });
+    termsText: {
+        textTransform: 'lowercase',
+        color: '#32305D',
+        borderStyle: 'solid',
+        textDecorationLine: 'underline',
+        fontSize: 12
+    }
+});
 
 export default MenuScreen;

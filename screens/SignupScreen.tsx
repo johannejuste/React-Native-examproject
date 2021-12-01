@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, Image, Button, StyleSheet, TextInput, Platform, SafeAreaView, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  Button,
+  StyleSheet,
+  TextInput,
+  Platform,
+  SafeAreaView,
+  TouchableOpacity
+} from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 
@@ -7,22 +17,23 @@ import { signup } from '../store/actions/UserActions';
 import Input from './../components/Input';
 import ImagesExample from './../components/ImageExample'
 
-
-
 const SignupScreen = (props: any) => {
 
+  // --- For signup form useState() - Declares new state variable
+  const [changeEmail,
+    setChangeEmail] = useState('');
+  const [nameValid,
+    setNameValid] = useState(false);
 
-  // --- For signup form
+  const [changePassword,
+    setChangePassword] = useState("");
+  const [passwordValid,
+    setPasswordValid] = useState(false);
 
-  // useState() - Declares new state variable
-  const [changeEmail, setChangeEmail] = useState('');
-  const [nameValid, setNameValid] = useState(false);
-
-  const [changePassword, setChangePassword] = useState("");
-  const [passwordValid, setPasswordValid] = useState(false);
-
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [confirmPasswordValid, setConfirmPasswordValid] = useState(false);
+  const [confirmPassword,
+    setConfirmPassword] = useState('');
+  const [confirmPasswordValid,
+    setConfirmPasswordValid] = useState(false);
 
   // Invoke hook useDisptach and store it to variable dispatch to dispatch actions
   const dispatch = useDispatch();
@@ -32,13 +43,9 @@ const SignupScreen = (props: any) => {
     dispatch(signup(changeEmail, changePassword, props)); // working
   }
 
-
-
-
   // --- For the Terms and condition
-  const [checked, setChecked] = useState(''); // useState is empty
-  const [shouldShow, setShouldShow] = useState(''); // useState is empty
-
+  const [checked,
+    setChecked] = useState(false); // useState is false
 
   const handleRadio = () => {
     setChecked(!checked as any) // checkbox set to true/false
@@ -48,22 +55,17 @@ const SignupScreen = (props: any) => {
     console.log('Checkbox set to', checked); //Logs checkbox to true/false
   }, [checked]);
 
-  React.useEffect(() => {
-    console.log('Opening terms and condition module', shouldShow); // Opening terms and condiiton
-  }, [shouldShow]);
-
-
-
   return (
 
     <View style={styles.container}>
-
 
       {/*TOP OF FORM*/}
       <View style={styles.imgWrap}>
         <ImagesExample />
       </View>
-      <View style={styles.headLineWrapper}><Text style={styles.headLine}>Sign up to get access</Text></View>
+      <View style={styles.headLineWrapper}>
+        <Text style={styles.headLine}>Sign up to get access</Text>
+      </View>
 
       {/*FORM*/}
       <View style={styles.wrapper}>
@@ -75,7 +77,8 @@ const SignupScreen = (props: any) => {
               placeholder='sije19ab@student.cbs.dk'
               label="E-mail"
               error="Please fill out your username"
-              text={changeEmail} nameValid={nameValid}
+              text={changeEmail}
+              nameValid={nameValid}
               onValid={(valid: any) => setNameValid(valid)}
               setContent={(content: any) => setChangeEmail(content)} />
           </SafeAreaView>
@@ -86,7 +89,8 @@ const SignupScreen = (props: any) => {
               placeholder="********"
               label="Password"
               error="Please fill out your password"
-              text={changePassword} nameValid={passwordValid}
+              text={changePassword}
+              nameValid={passwordValid}
               onValid={(valid: any) => setPasswordValid(valid)}
               setContent={(content: any) => setChangePassword(content)} />
           </SafeAreaView>
@@ -97,7 +101,8 @@ const SignupScreen = (props: any) => {
               placeholder="********"
               label="Repeat Password"
               error="Password dosn't match"
-              text={confirmPassword} nameValid={confirmPasswordValid}
+              text={confirmPassword}
+              nameValid={confirmPasswordValid}
               onValid={(valid: any) => setConfirmPasswordValid(valid)}
               setContent={(content: any) => setConfirmPassword(content)} />
           </SafeAreaView>
@@ -114,13 +119,19 @@ const SignupScreen = (props: any) => {
                   value="false"
                   color="#32305D"
                   uncheckedColor="#32305D"
-                  status={checked ? 'checked' : 'unchecked'}
+                  status={checked
+                    ? 'checked'
+                    : 'unchecked'}
                   onPress={() => handleRadio()} />
               </View>
             </View>
 
-            <Text style={styles.termsLabel} > I agree to the </Text>
-            <TouchableOpacity onPress={() => props.navigation.navigate('TermsAndConditionScreen')}><Text style={styles.termsText}>terms and conditions</Text>
+            <Text style={styles.termsLabel}>
+              I agree to the
+            </Text>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('TermsAndConditionScreen')}>
+              <Text style={styles.termsText}>terms and conditions</Text>
             </TouchableOpacity>
 
           </View>
@@ -129,7 +140,12 @@ const SignupScreen = (props: any) => {
       </View>
 
       {/*SIGNUP BUTTON*/}
-      <TouchableOpacity disabled={!checked} style={!checked ? styles.button : styles.buttonValid} onPress={handleSignup}>
+      <TouchableOpacity
+        disabled={!checked}
+        style={!checked
+          ? styles.button
+          : styles.buttonValid}
+        onPress={handleSignup}>
         <View>
           <Text style={styles.buttonText}>Get access</Text>
         </View>
@@ -138,18 +154,20 @@ const SignupScreen = (props: any) => {
       {/*ALREADY A USER, change to Login*/}
       <View style={styles.accountButton}>
         <Text style={styles.accountText}>Already have a user?</Text>
-        <TouchableOpacity onPress={() => props.navigation.navigate('LOGIN')}>
+        <TouchableOpacity
+          onPress={() => {
+            props
+              .navigation
+              .navigate('LOGIN')
+          }}>
           <Text style={styles.accountButtonText}>Log in</Text>
         </TouchableOpacity>
       </View>
 
     </View>
 
-
   );
 }
-
-
 
 // STYLING
 const styles = StyleSheet.create({
@@ -157,7 +175,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: 'white'
   },
 
   termsContainer: {
@@ -166,21 +184,20 @@ const styles = StyleSheet.create({
     margin: 20,
     marginTop: 660,
     //zIndex: 999,
-    backgroundColor: 'white',
-
+    backgroundColor: 'white'
   },
 
   radioButtonWrapper: {
     borderWidth: 1,
     borderColor: 'darkblue',
-    borderRadius: 5,
+    borderRadius: 5
   },
 
   infoIcon: {
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
 
-  check: {                            // THIS IS THE ACTUAL CHECKBOX NBS!
+  check: { // THIS IS THE ACTUAL CHECKBOX NBS!
     backgroundColor: 'transparent',
     borderColor: '#32305D',
     borderWidth: 2,
@@ -188,26 +205,24 @@ const styles = StyleSheet.create({
     width: 27,
     height: 27,
     marginTop: 5,
-    marginRight: 0,
+    marginRight: 0
   },
 
   checkboxwrapper: {
     display: 'flex',
     flexDirection: 'row',
     alignContent: 'center',
-    paddingVertical: 15,
-
+    paddingVertical: 15
   },
   text: {
     lineHeight: 30,
-    marginLeft: 10,
+    marginLeft: 10
   },
 
   imgWrap: {
     width: 133,
     marginTop: 30,
-    marginBottom: 10,
-
+    marginBottom: 10
   },
 
   wrapper: {
@@ -216,15 +231,14 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 2
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
     height: 239,
     borderRadius: 5,
-    marginBottom: 40,
-
+    marginBottom: 40
   },
 
   wrapperInline: {
@@ -233,7 +247,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 1,
     shadowColor: '#AAAAAA29',
-    width: 300,
+    width: 300
   },
 
   button: {
@@ -250,11 +264,10 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 2
     },
     shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
+    shadowRadius: 3.84
   },
 
   buttonValid: {
@@ -271,10 +284,10 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 2
     },
     shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    shadowRadius: 3.84
   },
 
   buttonText: {
@@ -284,9 +297,7 @@ const styles = StyleSheet.create({
     color: 'white',
     textTransform: 'capitalize',
     fontWeight: 'bold',
-    fontSize: 16,
-
-
+    fontSize: 16
   },
 
   accountButton: {
@@ -294,22 +305,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     margin: 10,
     marginBottom: 20,
-    paddingVertical: 12,
-
-
+    paddingVertical: 12
   },
 
   accountButtonText: {
 
     color: '#5050A5',
     fontWeight: 'bold',
-    marginLeft: 6,
-
+    marginLeft: 6
   },
 
   accountText: {
-    color: '#5050A5',
-
+    color: '#5050A5'
   },
 
   headLine: {
@@ -322,30 +329,24 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginRight: 115,
     marginBottom: 20,
-    fontFamily: "Teko",
-
-
+    fontFamily: "Teko"
   },
 
   headLineWrapper: {
     justifyContent: 'center',
-    alignItems: 'center',
-
+    alignItems: 'center'
   },
 
   checkboxContainer: {
     flexDirection: "row",
     marginBottom: 20,
-    marginLeft: 3,
-
+    marginLeft: 3
   },
-
 
   checkboxWrapper: {
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    marginTop: 15,
-
+    marginTop: 15
   },
 
   checkbox: {
@@ -357,7 +358,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: 17,
     height: 17,
-    marginRight: 5,
+    marginRight: 5
   },
 
   checkBoxStyle: {
@@ -365,7 +366,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginRight: 10,
     justifyContent: 'flex-start',
-    alignContent: 'flex-start',
+    alignContent: 'flex-start'
   },
 
   termsLabel: {
@@ -374,7 +375,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     textDecorationLine: 'none',
     fontSize: 12,
-    marginTop: 12,
+    marginTop: 12
   },
 
   termsText: {
@@ -383,17 +384,8 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     textDecorationLine: 'underline',
     fontSize: 12,
-    marginTop: 11.5,
-
-
-
-  },
-
-
-
-
-
+    marginTop: 11.5
+  }
 });
-
 
 export default SignupScreen;

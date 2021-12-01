@@ -5,9 +5,6 @@ const NotificationIcon = () => (
    <Image style={{
        width: 20, 
        height: 20,
-    /*    borderWidth: 2,
-       borderRadius: 100,
-       borderColor: 'darkblue', */
        marginLeft: 10,
     
     

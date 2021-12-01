@@ -1,9 +1,6 @@
-import React, { Component } from 'react'
-import { Image } from 'react-native'
+import React, {Component} from 'react'
+import {Image} from 'react-native'
 
-const ImagesExample = () => (
-   <Image source = {require('./../assets/logo.png')} />
-)
-
+const ImagesExample = () => (<Image source={require('./../assets/logo.png')}/>)
 
 export default ImagesExample;

@@ -1,51 +1,50 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { RadioButton } from 'react-native-paper';
+import {useState} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {RadioButton} from 'react-native-paper';
 
 const RadioButtons = () => {
-  const [checked, setChecked] = useState('false');
+    const [checked,
+        setChecked] = useState('false');
 
-  React.useEffect(() => {
-    console.log('Checkbox set to', checked);
-    // add css to signup button (opacity some thing)
-  }, [checked]);
-  
-  const handleRadio = () => {
-    setChecked(!checked)
-  }
+    React.useEffect(() => {
+        console.log('Checkbox set to', checked);
+        // add css to signup button (opacity some thing)
+    }, [checked]);
 
-  return (
-    <View style={styles.radioButtonsWrap}>
-    <View style={styles.radioButtonWrapper}>
-      <RadioButton
-        value='first'
-        color="#32305D"
-        uncheckedColor="#32305D"
-        status={checked ? 'checked' : 'unchecked'}
-        onPress={() => handleRadio()}
+    const handleRadio = () => {
+        setChecked(!checked)
+    }
 
-      />
-      </View>
-    </View>
-  );
+    return (
+        <View style={styles.radioButtonsWrap}>
+            <View style={styles.radioButtonWrapper}>
+                <RadioButton
+                    value='first'
+                    color="#32305D"
+                    uncheckedColor="#32305D"
+                    status={checked
+                    ? 'checked'
+                    : 'unchecked'}
+                    onPress={() => handleRadio()}/>
+            </View>
+        </View>
+    );
 };
 
-
-const styles = StyleSheet.create({ 
+const styles = StyleSheet.create({
     radioButtonsWrap: {
         flex: 1,
         height: 10,
         flexDirection: 'row',
-        color: 'black',  
+        color: 'black'
     },
     radioButtonWrapper: {
         borderWidth: 1,
         borderColor: 'darkblue',
-        borderRadius: 5,
+        borderRadius: 5
     }
-   
-});
 
+});
 
 export default RadioButtons;
