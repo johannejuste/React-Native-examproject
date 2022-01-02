@@ -1,6 +1,7 @@
 import ChatRoom from '../../models/ChatRoom';
 import Message from './../../models/Message';
 import User from './../../models/User';
+import {useSelector} from 'react-redux';
 
 export const TOGGLE_HAPPY = 'TOGGLE_HAPPY';
 export const NEW_CHATROOM = 'NEW_CHATROOM';
@@ -74,8 +75,30 @@ export const fetchChatRooms = () => {
     };
 };
 
-export const deleteChatRoom = (chatroomName) => {
-    return {type: DELETE_CHATROOM, payload: chatroomName};
+// export const deleteChatRoom = (chatroomName) => {
+//     return {type: DELETE_CHATROOM, payload: chatroomName};
+// };
+
+export const deleteChatRoom = (chatroomName, chatRoomId) => {
+
+    return async(dispatch, getState) => { // redux thunk
+        const token = getState().user.token; // accessing token in the state.
+
+        const response = await fetch('https://kvaliapp-184d1-default-rtdb.europe-west1.firebasedatabase.app/chatrooms/' + chatRoomId + '.json?auth=' + token, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const data = await response.json(); // json to javascript
+        console.log(data);
+        if (!response.ok) {
+            //There was a problem..
+        } else {
+        dispatch({ type: DELETE_CHATROOM, payload: chatroomName});
+    }
+};
 };
 
 export const newChatMessage = (chatRoomId, message) => {

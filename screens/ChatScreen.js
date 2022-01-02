@@ -19,7 +19,7 @@ import NotificationIcon from '../components/NotificationIcon';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const ChatScreen = (props) => {
-    const isHappy = useSelector(state => state.chat.isHappy);
+    // const isHappy = useSelector(state => state.chat.isHappy);
     const chatRooms = useSelector(state => state.chat.chatRooms);
 
     const [text,
@@ -31,6 +31,16 @@ const ChatScreen = (props) => {
         console.log("fetching chatrooms");
         dispatch(fetchChatRooms());
     }, []);
+
+    const handleDeleteChatRoom = () => {
+        const chatRoom = chatRooms.find(room => room.chatRoomName === text)
+        console.log('deletechatroomName:', chatRoom);
+        
+        const chatRoomId = chatRoom.chatRoomId
+        console.log('deletechatroomId:', chatRoomId);
+
+        dispatch(deleteChatRoom(text, chatRoomId))
+    }
 
     return (
         <View style={styles.container}>
@@ -58,7 +68,7 @@ const ChatScreen = (props) => {
                     </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => dispatch(deleteChatRoom(text))}>
+                <TouchableOpacity onPress={handleDeleteChatRoom}>
                     <View style={styles.buttonDelete}>
                         <Text style={styles.buttonText}>delete chatroom</Text>
                     </View>
