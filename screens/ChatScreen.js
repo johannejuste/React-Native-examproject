@@ -21,6 +21,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 const ChatScreen = (props) => {
     // const isHappy = useSelector(state => state.chat.isHappy);
     const chatRooms = useSelector(state => state.chat.chatRooms);
+    console.log('HEY', chatRooms);
 
     const [text,
         onChangeText] = useState("");

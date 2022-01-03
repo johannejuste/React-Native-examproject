@@ -3,40 +3,9 @@ import { useNavigation } from '@react-navigation/native';
 import { View, Text, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const TimeIcon = () => (
-    <Image style={{
-       width: 20, 
-       height: 20,
-       marginLeft: -50,
-       marginTop: 9,    ç
-    }} source = {require('./../assets/alarmclock.png')} />
- )
-
- const LocationIcon = () => (
-    <Image style={{
-       width: 20, 
-       height: 20,
-       marginLeft: -50,
-       marginTop: 9,
-    }} source = {require('./../assets/marker.png')} />
- )
-
- const InformationIcon = () => (
-    <Image style={{
-       width: 20, 
-       height: 20,
-       marginLeft: -50,
-       marginTop: 9,
-    }} source = {require('./../assets/infoicon.png')} />
- )
-
-
-
-const Events = props => {
+const EventPreview = props => {
     const navigation = useNavigation(); 
-    // console.log('se her efter events', props);
-    // console.log(props.event.eventName);
-    let image = props.event.imageUrl
+
     return (
 
     <View>
@@ -72,28 +41,19 @@ const Events = props => {
             <View style={styles.flexRow}><Text style={styles.textTime}>{props.event.eventTime}</Text></View>
             <View style={styles.flexRow}><Text style={styles.textLocation}>{props.event.eventLocation}</Text></View>
       
-
        </View>
         </View>
 
         <View style={styles.iconView} >
-                <Image
-                    style={styles.iconsTime}
-                    // source={props.event.imageUrl}/>
-                    source={require('./../assets/alarmclock.png')}/>
-            
-            </View>
+            <Image style={styles.iconsTime}
+            source={require('./../assets/alarmclock.png')}/>
+        </View>
 
-            <View style={styles.iconView}>
-                <Image
-                    style={styles.iconsLocation}
-                    // source={props.event.imageUrl}/>
-                    source={require('./../assets/marker.png')}/>
-            
-            </View>
-
-        
-        
+        <View style={styles.iconView}>
+            <Image style={styles.iconsLocation}
+            source={require('./../assets/marker.png')}/>
+        </View>
+ 
     </TouchableOpacity>
     </View>
     
@@ -105,7 +65,6 @@ const styles = StyleSheet.create({
     flexRow: {
         flexDirection: 'column',
     },
-
     Box: {
         backgroundColor: 'rgba(80, 80, 165, 1)',
         borderBottomLeftRadius: 5,
@@ -120,12 +79,10 @@ const styles = StyleSheet.create({
 /*         alignSelf: 'flex-end',*/        
         zIndex: 9,
     },  
-
     icons: {
         width: 10,
         height: 10,
     },
-
     iconsLike: {
         marginTop: 12,
         marginLeft: 292,
@@ -134,7 +91,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         zIndex: 10,
     },
-
     iconsTime: {
         marginTop: -36,
         marginLeft: 12,
@@ -142,7 +98,6 @@ const styles = StyleSheet.create({
         height: 10,
         position: 'absolute',
     },
-
     iconsLocation: {
         marginTop: -20,
         marginLeft: 12,
@@ -150,7 +105,6 @@ const styles = StyleSheet.create({
         height: 15,
         position: 'absolute',
     },
-
     iconView: {
         flex: 1,
     },
@@ -159,25 +113,20 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10,
         paddingLeft: 20,
-        paddingRight: 20,
-        
+        paddingRight: 20, 
     },
-
-    background: {
+    background: { 
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        width: 337,
+        height: 175,
+        borderRadius: 5,
+        borderBottomRightRadius: 5,
+        borderBottomLeftRadius: 5,
         
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            width: 337,
-            height: 175,
-            borderRadius: 5,
-            borderBottomRightRadius: 5,
-            borderBottomLeftRadius: 5,
-            
-
         },
-
     flatListWrapper: {
         width: 337,
         height: 175,
@@ -185,10 +134,7 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 5,
         borderBottomLeftRadius: 5,
         marginTop: 20,
-        backgroundColor: 'white',
-
-        
-        
+        backgroundColor: 'white',   
      },
     textView: {
         paddingLeft: 5,
@@ -198,8 +144,7 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         marginTop: 20,
     },
-    message: {
-        
+    message: {    
     },
     text: {
         fontFamily: 'Teko',
@@ -209,7 +154,6 @@ const styles = StyleSheet.create({
          marginTop: 90,
          margin: 11,
     },
-
     textSmall: {
         color: 'rgba(255, 255, 255, 1)',
         fontSize: 12,
@@ -218,7 +162,6 @@ const styles = StyleSheet.create({
         margin: 12,
         fontWeight: 'bold',
     },
-
     textTime: {
         color: 'rgba(255, 255, 255, 1)',
         fontSize: 12,
@@ -236,25 +179,18 @@ const styles = StyleSheet.create({
         marginLeft: 30,
         margin: 12,
     },
-
     timeLocationWrap: {
         marginTop: 80,
     },
-
-
     dotView: {
-         marginLeft: 'auto'
-        
+         marginLeft: 'auto'    
     },
     imageView: {
         marginTop: 0,
         borderBottomRightRadius: 5,
         borderBottomLeftRadius: 5,
         borderRadius: 5,
-        opacity: 0.5,
-        
-              
-        
+        opacity: 0.5, 
     },
     dot: {
      height: 12,
@@ -268,4 +204,4 @@ const styles = StyleSheet.create({
      borderRadius: 5,
    },
  });
-export default Events;
+export default EventPreview;

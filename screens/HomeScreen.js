@@ -8,7 +8,7 @@ import {
     TextInput
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import Events from '../components/Events';
+import EventPreview from '../components/EventPreview';
 import {fetchEvents} from './../store/actions/EventAction';
 
 const HomeScreen = props => {
@@ -65,7 +65,7 @@ const HomeScreen = props => {
                 <FlatList
                     data={events}
                     renderItem={itemData => (
-                    <Events event={itemData.item}></Events>
+                    <EventPreview event={itemData.item}></EventPreview>
                 )}
                     keyExtractor={item => item.eventId}/>
 

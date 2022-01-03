@@ -7,7 +7,6 @@ class Event {
         this.eventTime = eventTime;
         this.eventLocation = eventLocation;
         this.goingUsers = goingUsers
-        // this.interestedUsers = interestedUsers
     }
 }
 

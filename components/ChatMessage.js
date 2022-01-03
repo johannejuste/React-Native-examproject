@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 import {View, Text, Button, StyleSheet, Image} from 'react-native';
 
 const ChatMessage = props => {
-    // props.chatmessage show image if not "me". show purple container if "me" show
+    // props.chatmessage show image if not "me". show purple container, if "me" show
     // time if time is not the same as previous time and same user show date if this
     // message contains a new date compared to previous. const hardcodedUserId =
     // '1';

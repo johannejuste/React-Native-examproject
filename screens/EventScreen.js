@@ -5,9 +5,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {Divider} from 'react-native-paper';
 import {updateGoingUser} from '../store/actions/EventAction';
 import {updateInterestedUser} from '../store/actions/UserActions';
-import UserGoingInterested from '../models/UserGoingInterested';
-import EventGoingInterested from '../models/EventGoingInterested';
-;
+import UserGoingInterested from '../models/UserGoingInterested';;
 
 const EventScreen = props => {
 

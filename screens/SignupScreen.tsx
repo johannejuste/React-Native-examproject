@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux';
 
 import { signup } from '../store/actions/UserActions';
 import Input from './../components/Input';
-import ImagesExample from './../components/ImageExample'
+import StartScreenImage from '../components/StartScreenImage'
 
 const SignupScreen = (props: any) => {
 
@@ -43,7 +43,7 @@ const SignupScreen = (props: any) => {
     dispatch(signup(changeEmail, changePassword, props)); // working
   }
 
-  // --- For the Terms and condition
+  // For the Terms and condition
   const [checked,
     setChecked] = useState(false); // useState is false
 
@@ -61,7 +61,7 @@ const SignupScreen = (props: any) => {
 
       {/*TOP OF FORM*/}
       <View style={styles.imgWrap}>
-        <ImagesExample />
+        <StartScreenImage />
       </View>
       <View style={styles.headLineWrapper}>
         <Text style={styles.headLine}>Sign up to get access</Text>

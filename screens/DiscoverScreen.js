@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, TouchableOpacity,Image } from 'react-native';
 
 const DiscoverScreen = props => {
 
+    console.log('PROPS', props);
+
     return (
 
         <View style={styles.container}>
@@ -20,7 +22,7 @@ const DiscoverScreen = props => {
             <TouchableOpacity
                 title="All Student organisations"
                 style={styles.button2}
-                onPress={() => props.navigation.navigate("Organisations")}>
+               >
                 <Image style={styles.image} source={require("./../assets/IMG_8080.png")}/>
                 <Text style={styles.eventTouchText}>
                     ALL STUDENT ORGANISATIONS
@@ -30,7 +32,7 @@ const DiscoverScreen = props => {
             <TouchableOpacity
                 title="All Posts"
                 style={styles.button3}
-                onPress={() => props.navigation.navigate("Posts")}>
+                >
                 <Image style={styles.image} source={require("./../assets/IMG_9090.png")}/>
                 <Text style={styles.eventTouchText}>
                     ALL POSTS

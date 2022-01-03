@@ -83,6 +83,7 @@ export const refreshToken = (refreshToken: string) => {
 
 export const login = (email: string, password: string, isValid: any) => {
     return async (dispatch: any) => { // redux thunk
+
         const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + api_key, {
             method: 'POST',
             headers: {
@@ -97,6 +98,8 @@ export const login = (email: string, password: string, isValid: any) => {
         });
 
         const data = await response.json(); // json to javascript
+
+
         const responseRealtime = await fetch(`https://kvaliapp-184d1-default-rtdb.europe-west1.firebasedatabase.app/userinfo/.json?auth=` + data.idToken, {
             method: 'GET',
             headers: {
@@ -125,6 +128,7 @@ export const login = (email: string, password: string, isValid: any) => {
             SecureStore.setItemAsync('userToken', data.idToken);
             SecureStore.setItemAsync('user', JSON.stringify(user));
             let expiration = new Date();
+
             //token sættes en time foran
             expiration.setSeconds(expiration.getSeconds() + parseInt(data.expiresIn));
             SecureStore.setItemAsync('expiration', JSON.stringify(expiration));
@@ -141,7 +145,7 @@ export const login = (email: string, password: string, isValid: any) => {
     };
 };
 
-export const signup = (email: any, password: any, props: any) => {
+export const signup = (email: string, password: string, props: any) => {
     // console.log(email + " " + password);
 
     return async (dispatch: any, getState: any) => { // redux thunk
@@ -153,7 +157,7 @@ export const signup = (email: any, password: any, props: any) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ //javascript to json
-                //key value pairs of data you want to send to server ...
+                //key value pairs of the data ...
                 email: email,
                 password: password,
                 returnSecureToken: true
@@ -170,7 +174,7 @@ export const signup = (email: any, password: any, props: any) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ //javascript to json
-                //key value pairs of data you want to send to server ...
+                //key value pairs of data
                 id: data.localId,
                 firstname: "",
                 lastname: "",
@@ -191,7 +195,7 @@ export const signup = (email: any, password: any, props: any) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ //javascript to json
-                //key value pairs of data you want to send to server ...
+                //key value pairs of data send to server ...
                 id: dataRealtime.name
             })
         });
@@ -208,8 +212,9 @@ export const signup = (email: any, password: any, props: any) => {
             //Updates secure storage
             SecureStore.setItemAsync('userToken', data.idToken);
             SecureStore.setItemAsync('user', JSON.stringify(user));
-            let expiration = new Date();
+
             //token sættes en time foran
+            let expiration = new Date();
             expiration.setSeconds(expiration.getSeconds() + parseInt(data.expiresIn));
             SecureStore.setItemAsync('expiration', JSON.stringify(expiration));
             SecureStore.setItemAsync('refreshToken', data.refreshToken);

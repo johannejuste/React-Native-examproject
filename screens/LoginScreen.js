@@ -6,7 +6,7 @@ import * as SecureStore from 'expo-secure-store';
 import {useSelector} from 'react-redux';
 import {toggleUserValid} from './../store/actions/UserActions'
 
-import ImagesExample from './../components/ImageExample'
+import StartScreenImage from '../components/StartScreenImage'
 import InformationIcon from '../components/InfoIcon';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
@@ -78,7 +78,7 @@ const LoginScreen = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.imgWrap}>
-                <ImagesExample/>
+                <StartScreenImage/>
             </View>
             <View style={styles.headLineWrapper}>
                 <Text style={styles.headLine}>Log in</Text>

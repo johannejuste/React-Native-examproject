@@ -1,9 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import { View, Text, Button, StyleSheet, TextInput } from 'react-native';
-import InformationIcon from './InfoIcon';
 
-// Properties with build in types
+// defines syntax of type checking
 interface Props {
     secure: boolean,
     placeholder: string;
@@ -15,6 +14,7 @@ interface Props {
     setContent: (arg: string) => void;
 }
 
+// input component
 const Input = ({
     placeholder,
     secure,
@@ -53,7 +53,6 @@ const Input = ({
                     onChangeText={handleNewInput}
                     onBlur={() => setTouched(true)}></TextInput>
                 {!nameValid && touched && <Text style={styles.errorMsg}>{error}</Text>}
-                <InformationIcon />
             </View>
 
         );

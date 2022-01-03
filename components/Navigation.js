@@ -106,6 +106,8 @@ const Navigation = props => {
     )}
     </NavigationContainer>
  );
+
+
 }
 
 const styles = StyleSheet.create({

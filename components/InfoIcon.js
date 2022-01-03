@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Image} from 'react-native'
 
+// UI component used in login screen
 const InformationIcon = () => (<Image
     style={{
     width: 20,

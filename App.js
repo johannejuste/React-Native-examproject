@@ -11,7 +11,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import ReduxThunk from 'redux-thunk';
 import Navigation from './components/Navigation';
 
-//Spliting reducing function into separate functions,
+//Spliting reducing function, comineReducers(), into separate reducing functions,
 //each managing independent parts of the state.
 const rootReducer = combineReducers({
   chat: ChatReducer,
@@ -22,7 +22,6 @@ const rootReducer = combineReducers({
 //rootReducer: Passes reducers to redux createStore function and 
 //applyMiddleware(ReduxThunk) allows us to write redux actions with asynchronous code (backend call)
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
-
 
 export default function App() {
   

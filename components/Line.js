@@ -1,8 +1,9 @@
 import React from 'react';
 import {View} from 'react-native';
 
-export default function Line() {
-    return (<View
+// UI component to add a line i e.g. menuscreen
+const Line = () => (
+<View
         style={{
         height: 1,
         backgroundColor: '#AAAAAA',
@@ -12,5 +13,7 @@ export default function Line() {
         alignContent: 'center',
         alignSelf: 'center',
         marginBottom: 20
-    }}/>)
-}
+    }}/>
+)
+
+export default Line;

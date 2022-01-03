@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Image} from 'react-native'
 
+// UI compoennt used in notificationscreen
 const ImageNotificationScreen = () => (<Image
     style={{
     width: 200,
