@@ -3,35 +3,52 @@ import {View, Text, TouchableOpacity, StyleSheet, Image, ScrollView} from 'react
 import {useDispatch, useSelector} from 'react-redux';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Divider} from 'react-native-paper';
-import {updateGoingUser} from '../store/actions/UserActions';
+import {updateGoingUser} from '../store/actions/EventAction';
+import {updateInterestedUser} from '../store/actions/UserActions';
 import UserGoingInterested from '../models/UserGoingInterested';
-import {updateInterestedUser} from '../store/actions/UserActions';;
+import EventGoingInterested from '../models/EventGoingInterested';
+;
 
 const EventScreen = props => {
 
-    const {id} = props.route.params;
-
+    
     // state is defined by finding event id comapred to clicked event
+    const {id} = props.route.params;
     const singleEvent = useSelector(state => state.event.events).find(singleEvent => singleEvent.eventId === id);
     const eventId = singleEvent.eventId
+    console.log('Event state of going users', singleEvent.goingUsers);
 
-    // state is defined of loggedin user and email
-    const userEmail = useSelector(state => state.user.loggedInUser
-        ?.email);
-    console.log(userEmail);
+    // state of loggedin user and email
+    const user = useSelector(state => state.user.loggedInUser);
+    console.log(user);
 
-    //new user object
-    const user = new UserGoingInterested(userEmail);
+    // find goingUser in event that matches email of loggedin user
+    const useremail = user.email;
+    const singleEventUseremail = singleEvent.goingUsers.find(event => event.email === useremail);
+    console.log('singleEventUseremail', singleEventUseremail);
+
+    // Shows if user is found in goingUsers of event or not
+    if (!singleEventUseremail) {
+    console.log('not found');
+    } else {
+    if (singleEventUseremail.goingInterestedStatus == true) {
+    console.log('true');
+    }
+    console.log('found');
+    }
 
     const dispatch = useDispatch(); // dispatch an action
+    
+    //Set going status of user
+    const [goingStatus, setStatus] = useState(false);
 
+    //adds goingUser to backend and store
     const handleGoingUser = () => {
-        dispatch(updateGoingUser(eventId, user));
-    };
 
-    const handleInterestedUser = () => {
-        dispatch(updateInterestedUser(id, user));
+        setStatus(!goingStatus) // 
 
+        const  userGoing = new UserGoingInterested(user.email, goingStatus);
+        dispatch(updateGoingUser(eventId, user, userGoing));
     };
 
     return (
@@ -92,7 +109,7 @@ const EventScreen = props => {
 
                         <Image style={styles.tinyLogoStar} // source={props.event.imageUrl
                            source={require('./../assets/eventstar.png')}/>
-                        <TouchableOpacity style={styles.intBtn} onPress={handleInterestedUser}>
+                        <TouchableOpacity style={styles.intBtn}>
 
                             <Text style={styles.eventBtnText}>
                                 Interested
@@ -103,7 +120,7 @@ const EventScreen = props => {
                         <Image style={styles.tinyLogoCalender} // source={props.event.imageUrl
                            source={require('./../assets/eventcalender.png')}/>
 
-                        <TouchableOpacity style={styles.goingBtn} onPress={handleGoingUser}>
+                        <TouchableOpacity style={styles.goingBtn} onPress={setStatus, handleGoingUser}>
 
                             <Text style={styles.eventBtnTextGoing}>
                                 Going

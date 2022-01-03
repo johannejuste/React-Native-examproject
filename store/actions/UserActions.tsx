@@ -104,6 +104,7 @@ export const login = (email: string, password: string, isValid: any) => {
             }
         });
         const dataRealtime = await responseRealtime.json();
+
         let userInfo;
         console.log(dataRealtime, "the Response");
         for (const key in dataRealtime) {
@@ -277,7 +278,10 @@ export const updateNotifications = (userInfo: any, props: any) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ chatToggle: true, eventToggle: true })
+            body: JSON.stringify({
+                chatToggle: true,
+                eventToggle: true
+            })
         });
 
         const data = await response.json(); // json to javascript
@@ -294,9 +298,7 @@ export const updateNotifications = (userInfo: any, props: any) => {
             SecureStore.setItemAsync('user', JSON.stringify(user))
             dispatch({ type: EVENT_NOTIFICATIONS_TOGGLE, payload: user })
             dispatch({ type: CHAT_NOTIFICATIONS_TOGGLE, payload: user })
-            props
-                .navigation
-                .navigate('ONBOARDINGSCREEN1') // working
+            props.navigation.navigate('ONBOARDINGSCREEN1') // working
 
         }
     };
@@ -365,28 +367,3 @@ export const toggleEventNotification = (userInfo: any, setNotificationBoolean: b
         }
     };
 };
-
-// export const updateGoingUser = (eventId: any, user: any) => { console.log('vi
-// er her');     console.log(eventId, user)     return async (dispatch: any,
-// getState: any) => { // redux thunk         const token =
-// getState().user.token;         const response = await
-// fetch('https://kvaliapp-184d1-default-rtdb.europe-west1.firebasedatabase.app/
-// e vents/' + eventId + '/goingUsers.json?auth=' + token, {             method:
-// 'POST',             headers: {                 'Content-Type':
-// 'application/json'             },             body: JSON.stringify({
-// ...user             })         });         const data = await
-// response.json(); // json to javascript         console.log(data);         if
-// (!response.ok) {             //There was a problem.. console.log(response);
-//       } else { console.log('goingUserAdded');         }     }; }; export
-// const updateInterestedUser = (eventId: any, user: any) => {
-// console.log('vi er her');     console.log(eventId, user)     return async
-// (dispatch: any, getState: any) => { // redux thunk         const token =
-// getState().user.token;         const response = await
-// fetch('https://kvaliapp-184d1-default-rtdb.europe-west1.firebasedatabase.app/
-// e vents/' + eventId + '/interestedUsers.json?auth=' + token, { method:
-// 'POST',             headers: {                 'Content-Type':
-// 'application/json'             },             body: JSON.stringify({
-// ...user             })         });         const data = await
-// response.json(); // json to javascript         console.log(data);         if
-// (!response.ok) {             //There was a problem.. console.log(response);
-//       } else { console.log('interestedUserAdded');         }     }; };

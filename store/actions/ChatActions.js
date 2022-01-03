@@ -51,7 +51,7 @@ export const fetchChatRooms = () => {
         });
 
         const data = await response.json(); // json to javascript
-        // console.log(data);
+        console.log('API CHATROOMS', data);
 
         let chatrooms = [];
         for (const key in data) {
@@ -61,10 +61,11 @@ export const fetchChatRooms = () => {
                 messages.push(new Message(key2, msg.messageText, new Date(msg.messageTimestamp), msg.user));
             }
 
+            
             chatrooms.push(new ChatRoom(key, data[key].imageUrl, data[key].chatroomName, data[key].messages
                 ? messages
                 : []));
-        }
+            }
 
         if (!response.ok) {
             //There was a problem..
@@ -125,9 +126,7 @@ export const newChatMessage = (chatRoomId, message) => {
             // do something?
             dispatch({
                 type: NEW_CHATMESSAGE,
-                payload: {
-                    chatRoomId,
-                    messageObj: message
+                payload: { chatRoomId, messageObj: message
                 }
             })
         }

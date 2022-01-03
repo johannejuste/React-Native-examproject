@@ -16,14 +16,15 @@ const EventsScreen = props => {
 
     // state is defined // event: EventReducer in app.js // Initialstate events: []
     const events = useSelector(state => state.event.events);
-
+    console.log("fetching alle", events);
+    
     const dispatch = useDispatch(); // hdispatch an action
-
+    
     React.useEffect(() => { // peform side effects inside funtion
         console.log("fetching events");
         dispatch(fetchEvents()); // fetch events from EventsActions.js
     }, []);
-
+    
     return (
         <View style={styles.container}>
 
